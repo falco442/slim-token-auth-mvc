@@ -26,6 +26,6 @@ class Controller
     // }
 
     public function __invoke(ContainerInterface $ci){
-        
+        $this->Auth = new Middleware\Auth\AuthToken($ci);
     }
 }
