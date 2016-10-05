@@ -1,14 +1,12 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
+    "name": "slim/slim-token-auth-mvc",
+    "description": "A Slim Framework skeleton to build REST API with token autentication",
     "keywords": ["microframework", "rest", "router", "psr7"],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
+    "homepage": "https://github.com/falco442/slim-token-auth-mvc",
     "license": "MIT",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Marco Francaviglia"
         }
     ],
     "require": {
