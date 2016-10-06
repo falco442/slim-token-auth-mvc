@@ -13,10 +13,10 @@ Run this command from the directory in which you want to install your new Slim F
 
 To run the application in development, you can also run this command. 
 
-	php composer.phar start
+	composer start
 
 Run this command to run the test suite
 
-	php composer.phar test
+	composer test
 
 That's it! Now go build something cool.
