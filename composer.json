@@ -1,7 +1,7 @@
 {
     "name": "slim/slim-token-auth-mvc",
     "description": "A Slim Framework skeleton to build REST API with token autentication",
-    "keywords": ["microframework", "rest", "router", "psr7"],
+    "keywords": ["microframework", "rest"],
     "homepage": "https://github.com/falco442/slim-token-auth-mvc",
     "license": "MIT",
     "authors": [
