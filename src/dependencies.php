@@ -54,10 +54,6 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
-$container['Auth'] = function($c){
-	return new Middleware\Auth\TokenAuth($c);
-};
-
 
 $container['\App\Controller\UsersController'] = function ($c) {
     $logger = $c->get('logger');

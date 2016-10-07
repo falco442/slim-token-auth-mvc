@@ -8,7 +8,7 @@ class UsersController extends Controller{
 	}
 
 	public function view($request,$response,$args){
-		return $response->withJSON($this->table->get($args[0]));
+		return $response->withJSON($this->table->find($args['id']));
 	}
 
 	public function add($request,$response,$args){
