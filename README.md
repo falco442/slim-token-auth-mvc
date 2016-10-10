@@ -23,13 +23,13 @@ Run this command to run the test suite
 
 ## Database configuration
 
-This application uses the `Illuminate\Database\Capsule\Manager` (see [https://laravel.com/api/5.1/Illuminate/Database/Capsule/Manager.html](api)) provided with Laravel as ORM.
+This application uses the `Illuminate\Database\Capsule\Manager` (see [api](https://laravel.com/api/5.1/Illuminate/Database/Capsule/Manager.html)) provided with Laravel as ORM.
 
 You can config the DB in the `src/settings.php` for the connection. The connection provider is already configured in `src/dependencies.php`.
 
 ## CORS 
 
-In order to make the application able to accept CORS (Cross Origin Site Request), I added the [https://github.com/tuupola/cors-middleware](Tuupola cors-middleware). It's already configured in the file `src/middleware.php`.
+In order to make the application able to accept CORS (Cross Origin Site Request), I added the [Tuupola cors-middleware](https://github.com/tuupola/cors-middleware). It's already configured in the file `src/middleware.php`.
 
 ## Controllers
 
