@@ -3,8 +3,6 @@
 namespace Slim\Middleware\Auth;
 
 use Illuminate\Database\Query\Builder;
-// use FastRoute\RouteParser\Std;
-// use FastRoute\RouteParser\StdTest;
 use FastRoute\Dispatcher\MarkBased;
 
 class TokenAuth
@@ -18,6 +16,9 @@ class TokenAuth
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
+
+    protected $ci;
+
     public function __invoke($request, $response, $next)
     {
         $route = $request->getAttribute('route');
@@ -28,13 +29,18 @@ class TokenAuth
         }
         $path = rtrim($request->getUri()->getPath());
         $httpMethod = $request->getMethod();
-        $settings = $next->getContainer()->get('settings')['auth'];
-        $table = $next->getContainer()->get('db')->table($settings['table']);
+        $settings = $this->ci->get('settings')['auth'];
+        $table = $this->ci->get('db')->table($settings['table']);
         $token = $request->getQueryParam('token');
 
         $user = $table->where('token',$token)->first();
 
-        // $parser = new Std();
+        if($user){
+            $request->withAttribute($settings['userIdField'],$user->id);
+            $response = $next($request, $response);
+            return $next($request,$response);
+        }
+
         $result = [0];
 
 
@@ -66,17 +72,18 @@ class TokenAuth
                 break;
         }
 
-        if($user){
-            $request->withAttribute($settings['userIdField'],$user->id);
-            $response = $next($request, $response);
-            return $next($request,$response);
-        }
-
         return $response->withStatus(403)->withJSON('Not allowed');
     }
 
-    public function login($data = []){
-        
+    public function authenticate($request,$response){
+        if(!$request->isPost()){
+            return false;
+        }
+
+    }
+
+    public function __construct($ci){
+        $this->ci = $ci;
     }
 
 

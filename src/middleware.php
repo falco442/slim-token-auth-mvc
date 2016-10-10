@@ -2,7 +2,7 @@
 // Application middleware
 
 // e.g: $app->add(new \Slim\Csrf\Guard);
-$app->add(new \Slim\Middleware\Auth\TokenAuth);
+$app->add(new \Slim\Middleware\Auth\TokenAuth($app->getContainer()));
 
 $app->add(new \Tuupola\Middleware\Cors([
     "origin" => ["*"],

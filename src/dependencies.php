@@ -54,6 +54,10 @@ $container['db'] = function ($container) {
     return $capsule;
 };
 
+$container['Auth'] = function($c){
+    return new \Slim\Middleware\Auth($c);
+};
+
 
 $container['\App\Controller\UsersController'] = function ($c) {
     $logger = $c->get('logger');
