@@ -55,12 +55,12 @@ $container['db'] = function ($container) {
 };
 
 $container['Auth'] = function($c){
-    return new \Slim\Middleware\Auth($c);
+    return new \Slim\Middleware\Auth\TokenAuth($c);
 };
 
 
 $container['\App\Controller\UsersController'] = function ($c) {
     $logger = $c->get('logger');
     $table = $c->get('db')->table('users');
-    return new \App\Controller\UsersController($logger, $table);
+    return new \App\Controller\UsersController($logger, $table, $c);
 };

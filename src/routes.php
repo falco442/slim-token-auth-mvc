@@ -1,13 +1,12 @@
 <?php
 // Routes
-// $app->any('/users[/{id}]', \App\Controller\UsersController::class);
 
-$app->any('/login',function($request,$response,$args){
-	return $response->withJSON([1,2,3]);
-});
+
+$app->any('/login', '\App\Controller\UsersController:login');
 
 $app->get('/users','\App\Controller\UsersController:index');
 $app->get('/users/{id}','\App\Controller\UsersController:view');
+$app->post('/users','\App\Controller\UsersController:add');
 
 
 

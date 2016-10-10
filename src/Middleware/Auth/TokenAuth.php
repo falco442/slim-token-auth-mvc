@@ -4,6 +4,9 @@ namespace Slim\Middleware\Auth;
 
 use Illuminate\Database\Query\Builder;
 use FastRoute\Dispatcher\MarkBased;
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+use \Carbon\Carbon;
 
 class TokenAuth
 {
@@ -19,7 +22,7 @@ class TokenAuth
 
     protected $ci;
 
-    public function __invoke($request, $response, $next)
+    public function __invoke(Request $request, Response $response, $next)
     {
         $route = $request->getAttribute('route');
         if($route){
@@ -29,7 +32,7 @@ class TokenAuth
         }
         $path = rtrim($request->getUri()->getPath());
         $httpMethod = $request->getMethod();
-        $settings = $this->ci->get('settings')['auth'];
+        $settings = $this->settings = $this->ci->get('settings')['auth'];
         $table = $this->ci->get('db')->table($settings['table']);
         $token = $request->getQueryParam('token');
 
@@ -75,15 +78,51 @@ class TokenAuth
         return $response->withStatus(403)->withJSON('Not allowed');
     }
 
-    public function authenticate($request,$response){
+    public function authenticate(Request $request){
         if(!$request->isPost()){
             return false;
         }
+        
+        $fields = $this->settings['fields'];
 
+        $body = $request->getParsedBody();
+        if(!isset($body[$fields['username']]) || empty($body[$fields['username']]) || !isset($body[$fields['password']]) || empty($body[$fields['password']]))
+            return false;
+
+        $body[$fields['password']] = $this->hash($body[$fields['password']]);
+
+        $user = $this->table
+                    ->where($fields['username'],$body[$fields['username']])
+                    ->where($fields['password'],$body[$fields['password']])
+                    ->first();
+
+        if(!$user)
+            return false;
+
+        $user->token = sha1(uniqid());
+        $user->token_created = Carbon::now();
+
+        if($this->table->update((array)$user))
+            return (array)$user;
+
+        return false;
+    }
+
+    public function hash($password = null){
+        if(!$password)
+            return null;
+        $salt = $this->ci->get('settings')['auth']['salt'];
+        return password_hash($password,PASSWORD_BCRYPT,compact('salt'));
+    }
+
+    public static function passwordHash($password,$salt){
+        return password_hash($password,PASSWORD_BCRYPT,compact('salt'));
     }
 
     public function __construct($ci){
         $this->ci = $ci;
+        $this->settings = $this->ci->get('settings')['auth'];
+        $this->table = $this->ci->get('db')->table($this->settings['table']);
     }
 
 

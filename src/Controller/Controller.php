@@ -7,6 +7,7 @@ use Psr\Log\LoggerInterface;
 use Illuminate\Database\Query\Builder;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
+use Interop\Container\ContainerInterface;
 
 class Controller
 {
@@ -15,17 +16,17 @@ class Controller
 
     public function __construct(
         LoggerInterface $logger,
-        Builder $table
+        Builder $table,
+        ContainerInterface $ci
     ) {
         $this->logger = $logger;
         $this->table = $table;
+        $this->ci = $ci;
+        $this->auth = $this->ci->get('settings')['auth'];
+        $this->Auth = new \Slim\Middleware\Auth\TokenAuth($ci);
     }
 
-    // public function __invoke(Request $request, Response $response, $args){
-        
-    // }
-
     public function __invoke(ContainerInterface $ci){
-        $this->Auth = new Middleware\Auth\AuthToken($ci);
+        $this->Auth = new Middleware\Auth\TokenAuth($ci);
     }
 }
