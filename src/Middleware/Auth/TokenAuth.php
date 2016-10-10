@@ -35,6 +35,8 @@ class TokenAuth
         $settings = $this->settings = $this->ci->get('settings')['auth'];
         $table = $this->ci->get('db')->table($settings['table']);
         $token = $request->getQueryParam('token');
+        if(!$token || empty($token))
+            return $response->withStatus(403)->withJSON('Not allowed');
 
         $user = $table->where('token',$token)->first();
 
