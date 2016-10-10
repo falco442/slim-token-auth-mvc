@@ -35,7 +35,7 @@ In order to make the application able to accept CORS (Cross Origin Site Request)
 
 Modify the `settings.php` file to make application work:
 
-```
+```PHP
 return [
     'settings' => [
         '...',
