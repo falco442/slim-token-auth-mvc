@@ -6,9 +6,9 @@ use this application (derived from the slim/slim-skeleton) to develop a REST jso
 
 ## Install the Application
 
-Run this command from the directory in which you want to install your new Slim Framework application.
+Run this command from the directory in which you want to install your new application.
 
-    composer require falco442/slim-token-auth-mvc
+    composer create-project falco442/slim-token-auth-mvc [app-name]
 
 
 To run the application in development, you can also run this command. 
@@ -19,4 +19,18 @@ Run this command to run the test suite
 
 	composer test
 
-That's it! Now go build something cool.
+# Configuration
+
+## Database configuration
+
+This application uses the `Illuminate\Database\Capsule\Manager` (see [https://laravel.com/api/5.1/Illuminate/Database/Capsule/Manager.html](api)) provided with Laravel as ORM.
+
+You can config the DB in the `src/settings.php` for the connection. The connection provider is already configured in `src/dependencies.php`.
+
+## CORS 
+
+In order to make the application able to accept CORS (Cross Origin Site Request), I added the [https://github.com/tuupola/cors-middleware](Tuupola cors-middleware). It's already configured in the file `src/middleware.php`.
+
+## Controllers
+
+This application is alreaady configured with a base `Controller` class, to work as a little MVC. See the file `src/Controller/UsersController.php` as an example.
