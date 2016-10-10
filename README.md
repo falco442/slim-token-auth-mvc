@@ -60,7 +60,6 @@ return [
                 	'/users'	// to allow adding a user
                 ]
             ],
-            'userIdField'=>'auth_user_id',	// the field that TokenAuth make available in the request
             'fields'=>[
                 'username'=>'username',		// you can set anything you want.. like 'username' => 'email' if you want to login users by email
                 'password'=>'password'		// same thing as above

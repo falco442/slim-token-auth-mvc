@@ -39,7 +39,6 @@ class TokenAuth
         $user = $table->where('token',$token)->first();
 
         if($user){
-            $request->withAttribute($settings['userIdField'],$user->id);
             $response = $next($request, $response);
             return $next($request,$response);
         }
