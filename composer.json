@@ -1,6 +1,6 @@
 {
     "name": "falco442/slim-token-auth-mvc",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "description": "A Slim Framework skeleton to build REST API with token autentication",
     "keywords": ["microframework", "rest"],
     "homepage": "https://github.com/falco442/slim-token-auth-mvc",
